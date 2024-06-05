@@ -32,3 +32,4 @@ fun AppNavigator(authViewModel: AuthViewModel) {
         }
     }
 }
+
