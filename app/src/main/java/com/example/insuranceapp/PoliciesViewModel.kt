@@ -27,16 +27,17 @@ class PoliciesViewModel : ViewModel() {
 
     private fun fetchPurchasedPolicies() {
         val userId = auth.currentUser?.uid ?: return
-        repository.getPurchasedPolicies(userId).onEach { policies ->
-            _purchasedPolicies.value = policies
-            Log.d("PoliciesViewModel", "Updated purchased policies: $policies")
-        }.launchIn(viewModelScope)
+        viewModelScope.launch {
+            repository.getPurchasedPolicies(userId).collect { policies ->
+                _purchasedPolicies.value = policies
+                Log.d("PoliciesViewModel", "Updated purchased policies: $policies")
+            }
+        }
     }
 
     fun purchasePolicy(policy: Policy) {
         val userId = auth.currentUser?.uid ?: return
         repository.purchasePolicy(userId, policy)
-        // No need to fetch purchased policies here, as the listener in fetchPurchasedPolicies will automatically update the UI
     }
 
     fun logout(navController: NavController) {
@@ -48,4 +49,5 @@ class PoliciesViewModel : ViewModel() {
         }
     }
 }
+
 

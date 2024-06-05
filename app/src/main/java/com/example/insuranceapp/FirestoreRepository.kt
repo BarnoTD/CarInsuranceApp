@@ -19,9 +19,10 @@ class FirestoreRepository {
                 return@addSnapshotListener
             }
 
-            val policies = snapshot?.mapNotNull { document ->
+            val policies = snapshot?.documents?.mapNotNull { document ->
                 document.toObject(Policy::class.java)
             } ?: emptyList()
+
             policiesFlow.value = policies
             Log.d("FirestoreRepository", "Fetched policies: $policies")
         }
@@ -31,6 +32,7 @@ class FirestoreRepository {
     fun purchasePolicy(userId: String, policy: Policy) {
         val policyMap = mapOf(
             "userId" to userId,
+            "imageResId" to policy.imageResId,
             "name" to policy.name,
             "premium" to policy.premium
         )
