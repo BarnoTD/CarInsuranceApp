@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -57,7 +58,7 @@ fun PoliciesScreen(navController: NavController, policiesViewModel: PoliciesView
     Column (modifier = Modifier.padding(16.dp)) {
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween){
-            Text(text = "Purchased Policies:")
+            Text(text = "Purchased Policies:", fontWeight = FontWeight.Bold)
             Button(colors = ButtonDefaults.buttonColors(Color.Red),
                 onClick = {
                     authViewModel.logout()
@@ -84,7 +85,8 @@ fun PoliciesScreen(navController: NavController, policiesViewModel: PoliciesView
         ) {
             Text(
                 text = "Available Policies",
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold
             )
         }
 
@@ -92,14 +94,13 @@ fun PoliciesScreen(navController: NavController, policiesViewModel: PoliciesView
         LazyColumn {
             items(availablePolicies) { policy ->
                 Button(onClick = {
-                    policiesViewModel.purchasePolicy(policy)
+                    val jsonString = Gson().toJson(policy)
+                    navController.navigate("${Screen.Purchase.route}/$jsonString")
                 },
-                    modifier = Modifier.padding(end = 8.dp)
+                    modifier = Modifier.padding(8.dp)
 
                 ) {
-                    Card(
-                        modifier = Modifier
-                    ) {
+
                         Column(
                             modifier = Modifier
                                 .animateContentSize(
@@ -119,7 +120,7 @@ fun PoliciesScreen(navController: NavController, policiesViewModel: PoliciesView
                                         .size(dimensionResource(R.dimen.image_size))
                                         .padding(dimensionResource(R.dimen.padding_small))
                                         .clip(MaterialTheme.shapes.small),
-                                    contentScale = ContentScale.Crop,
+                                    contentScale = ContentScale.Fit,
                                     painter = painterResource(policy.imageResId),
                                     contentDescription = null // Image is decorative
                                 )
@@ -135,7 +136,7 @@ fun PoliciesScreen(navController: NavController, policiesViewModel: PoliciesView
                                     )
                                 }
                                 Spacer(Modifier.weight(1f))
-                            }
+
                         }
                     }
                 }

@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 
+
 @Composable
 fun AppNavigator(authViewModel: AuthViewModel) {
     val navController = rememberNavController()
@@ -32,4 +33,3 @@ fun AppNavigator(authViewModel: AuthViewModel) {
         }
     }
 }
-
