@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659075038881",
+    "project_id": "insurance-app-aa5c4",
+    "storage_bucket": "insurance-app-aa5c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659075038881:android:dd8d7956a2c9f2434f3ae0",
+        "android_client_info": {
+          "package_name": "com.example.insuranceapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK1vYzr56aII-5HJC8MXBF8ztwRiG7KhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
